@@ -1,2 +1,2 @@
 # JSONarea
-JSON Validated Textarea. Lightweight and Unopinionated.
+WIP. JSON Validated Textarea. Lightweight and Unopinionated.
