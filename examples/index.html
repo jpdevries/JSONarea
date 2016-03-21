@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSONArea</title>
+</head>
+<body>
+  <form>
+    <textarea id="json" placeholder="Put JSON here" rows='3'></textarea>
+    <footer>
+      <p data-valid-msg="JSON is valid. All systems go." data-invalid-msg="Sorry, this is not valid JSON."></p>
+      <button disabled>Submit</button>
+    </footer>
+  </form>
+  <p>This is a VanillaJS proof of concept for a simple JSON input form that won't let you save if the input isn't valid JSON.</p>
+  <p>Go ahead, put some JSON (or not) in it.</p>
+  <p>I did my best to follow the guidelines in this article <a target="_parent" href="https://medium.com/javascript-scene/common-misconceptions-about-inheritance-in-javascript-d5d9bab29b0a#.61a8xeg3l">Common Misconceptions About Inheritance in JavaScript</a> and use prototypal inheritance FTW.</p>
+
+  <script src="../dist/JSOnarea.js"></script>
+  <script>
+    // do the deal
+    var myJSONArea = JSONArea(document.getElementById('json'),{
+      sourceObjects:[] // optional array of objects for JSONArea to inherit from
+    }),
+    p = document.querySelector('p'),
+    button = document.querySelector('button');
+
+    // then here's how you use the JSON Area's update event
+    myJSONArea.getElement().addEventListener('update',function(e){
+      if(e.detail.isJSON) {
+        p.innerHTML = p.getAttribute('data-valid-msg');
+        button.removeAttribute('disabled');
+        this.classList.add('valid');
+        this.classList.remove('invalid');
+      } else {
+        p.innerHTML = p.getAttribute('data-invalid-msg');
+        button.setAttribute('disabled','disabled');
+        this.classList.add('invalid');
+        this.classList.remove('valid');
+      }
+    });
+  </script>
+</body>
+</html>
